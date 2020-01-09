@@ -1,0 +1,140 @@
+<html>
+
+<head>
+    <title>JAVASCRIPT</title>
+</head>
+
+<body>
+    <script>
+        // ЗАДАНИЯ ДЛЯ РАЗМИНКИ!!!!!!)))
+
+
+        //1) Есть функция, которая может принять неограниченное количество аргументов'-', '65', 'a', 'p', реализуйте ее так, что бы она находила дефиз и возвращала '65-a-p'
+        function getString(...arr) {
+            if (arr.includes('-')) {
+                let newarr = deleteit(arr, '-');
+                return newarr.join('-')
+
+
+
+
+            }
+        }
+        function deleteit(arr, value) {
+            var idx = arr.indexOf(value);
+            if (idx = true) {
+                return arr.splice(idx, 1);
+            }
+
+        }
+
+        getString('-', '65', 'a', 'p'); // 65-a-p
+        getString('75', '-', 'ad', 'hg', '543'); // 75-ad-hg-543
+
+        //2)  Перехватит ли catch здесь ошибку
+        new Promise((resolve, reject) => {
+            resolve('dffsd')
+        }).then((vasia) => {
+            var df = dfdf; //  ошибка вот она синтаксическая!
+            return 3423;
+        })
+            .catch((e) => console.log('fdsfd', e));
+
+
+        console.log('ДА, потому что df не резолвится')
+
+        // или здесь
+        new Promise((resolve, reject) => {
+            resolve('dffsd')
+        }).then((vasia) => {
+            throw new Error('new errror'); // вот явно бросаем ошибку 
+            return 3423;
+        })
+            .catch((e) => console.log('fdsfd', e));
+
+
+        console.log('ДА, потому что есть throw')
+
+        // 3) Взял с проекта код!! Нужно всего лишь переписать на async await :) Запускать не нужно ибо не сработает), просто переписать а я посмотрю!
+        let uploadedImage = '_.jpg';
+        async function pickImage() {
+            let context = imagepicker.create({
+                mode: 'single'
+            });
+            let isAuthorized = await context.authorize();
+            if (isAuthorized) {
+                let selection = context.present();
+                for (selected of selection) {
+                    uploadedImage = selected;
+                    await cropImage();
+                }
+
+            }
+        }
+        async function cropImage() {
+            let source = new imageSource.ImageSource();
+            let _source = await source.fromAsset(this.uploadedImage);
+            let args = await this.imageCropper.show(source, cropOptions);
+            if (args.image !== null) {
+                savePictureToFile(args.image);
+            }
+
+        }
+        function savePictureToFile(image) {
+            const folder = fs.knownFolders.documents();
+            const path = fs.path.join(folder.path, "Temp" + Date.now() + ".png");
+            const saved = image.saveToFile(path, "png");
+            if (saved) {
+                this.currentImage = image;
+                this.pictureSelected.emit(path);
+            }
+        }
+        async function cropOptions() {
+            return isAndroid ? {
+                width: 512,
+                height: 512
+            } : {
+                    lockSquare: true
+                };
+        }
+
+        await pickImage()
+
+        /**
+         * Takes camera photo
+         */
+        async function takePhoto() {
+            let request = await camera.requestPermissions();
+            let picture = await camera.takePicture();
+            if (picture) {
+                uploadedImage = imageAsset;
+                await cropImage();
+            }
+        }
+
+
+
+
+        // 4) И закрепляем промисы  
+        // https://playwithpromise.herokuapp.com/api/order-review/last -
+        setTimeout(() => {
+            // вернуть строку https://playwithpromise.herokuapp.com/api/order-review/last через 3 секунды и только тогда сделать запрос по этой строке!
+        }, 3000)
+        let xhr = new XMLHttpRequest;
+        xhr.open('GET', 'https://playwithpromise.herokuapp.com/api/order-review/last')
+        xhr.onload = () => {
+            const data = JSON.parse(xhr.response)
+            console.log(data)
+        }
+
+        // 5) Ну и последнее так уже чтобы расслабиться)! Пишем свой собственный push!!
+        function push(array, word) {
+            return array.push(word);
+        }
+        var arr = [1,2,3]
+        push(arr, "Word")
+
+    </script>
+</body>
+
+</html>
